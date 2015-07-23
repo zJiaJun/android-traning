@@ -108,6 +108,10 @@
             android:name=".activity.ReceiveSmsActivity"
             android:label="@string/title_activity_receive_sms" >
         </activity>
+        <activity
+            android:name=".activity.AlertAndProgressDialogActivity"
+            android:label="@string/title_activity_alert_and_progress_dialog" >
+        </activity>
     </application>
 
 </manifest>

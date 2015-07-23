@@ -28,8 +28,6 @@ public class MainActivity extends BaseActivity {
     private static final String TAG = "MainActivity";
 
     private ListView listView;
-    private ProgressDialog progressDialog;
-
 
     @Override
     protected void setContentView() {
@@ -49,8 +47,7 @@ public class MainActivity extends BaseActivity {
         values.add(new MainItem(getString(R.string.start_second_activity), SecondActivity.class));
         values.add(new MainItem(getString(R.string.start_second_activity_for_result), SecondActivity.class));
         values.add(new MainItem(getString(R.string.start_dialog_activity), DialogActivity.class));
-        values.add(new MainItem("AlertDialog", "AlertDialog"));
-        values.add(new MainItem("ProgressDialog","ProgressDialog"));
+        values.add(new MainItem("启动Alert和ProgressDialog活动", AlertAndProgressDialogActivity.class));
         values.add(new MainItem(getString(R.string.start_custom_activity),CustomActivity.class));
         values.add(new MainItem(getString(R.string.start_chat_activity), ChatActivity.class));
         values.add(new MainItem(getString(R.string.start_fragment_activity), FragmentActivity.class));
@@ -101,13 +98,7 @@ public class MainActivity extends BaseActivity {
                         }
                     }
                     if (itemObject instanceof String) {
-                        if ("AlertDialog".equals(text)) {
-                            builderAlertDialog();
-                        } else if ("ProgressDialog".equals(text)) {
-                            builderProgressDialog();
-                            Thread thread = new Thread(new ProgressDialogRunnable());//启动一个线程控制progressDialog的dismiss
-                            thread.start();
-                        } else if ("使用sendBroadcast发送广播".equals(text)) {
+                        if ("使用sendBroadcast发送广播".equals(text)) {
                             Intent intent = new Intent(itemObject.toString());
                             intent.putExtra("key", "sendBroadcast");
                             sendBroadcastCount++;
@@ -125,60 +116,6 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-    }
-
-    private void builderProgressDialog() {
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("This is Progress Dialog");
-        progressDialog.setMessage("Something is running,Please wait 5s");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-    }
-
-    private class ProgressDialogRunnable implements Runnable {
-
-        @Override
-        public void run() {
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            if (progressDialog != null) {
-                progressDialog.dismiss();
-            }
-        }
-
-    }
-
-    private void builderAlertDialog() {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setTitle("This is Dialog");
-        dialog.setMessage("Something important");
-
-        dialog.setCancelable(true);
-        dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Log.d(TAG, dialog.toString());
-                Log.d(TAG, which + "");
-            }
-        });
-        dialog.setNeutralButton("Neutral", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Log.d(TAG, dialog.toString());
-                Log.d(TAG, which + "");
-            }
-        });
-        dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Log.d(TAG, dialog.toString());
-                Log.d(TAG, which + "");
-            }
-        });
-        dialog.show();
     }
 
     @Override
