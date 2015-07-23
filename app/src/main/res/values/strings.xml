@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">First App</string>
+    <string name="action_settings">Setting</string>
+    <string name="hello_world">Hello world!</string>
+
+    <string name="title_activity_second">SecondActivity</string>
+    <string name="title_activity_dialog">DialogActivity</string>
+
+    <string name="start_second_activity">启动到第二个活动并传参</string>
+    <string name="start_second_activity_for_result">通过startActivityForResult启动</string>
+    <string name="start_dialog_activity">启动对话框活动</string>
+    <string name="start_chat_activity">启动聊天活动</string>
+
+    <string name="btn_params">返回数据给上个活动</string>
+    <string name="title_activity_chat">ChatActivity</string>
+    <string name="hint_input_text">Type something here</string>
+    <string name="text_btn_send">Send</string>
+    <string name="title_activity_fragment">FragmentActivity</string>
+    <string name="start_fragment_activity">启动碎片活动</string>
+
+    <string name="btn_text_replace_fragment">动态替换碎片</string>
+    <string name="tv_bottom_fragment">This is Bottom Fragment</string>
+    <string name="title_activity_custom">CustomActivity</string>
+    <string name="start_custom_activity">启动自定义的列表活动</string>
+    <string name="title_activity_broadcast">BroadcastActivity</string>
+    <string name="start_broadcast_activity">启动广播活动</string>
+    <string name="start_multiple_activity">启动测试ListView活动</string>
+    <string name="btn_register_receiver_text">注册/接收广播</string>
+    <string name="btn_send_broadcast_text">发送标准(无序)广播</string>
+    <string name="btn_send_order_broadcast_text">发送有序广播,可以拦截广播</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_login_success">LoginSuccessActivity</string>
+    <string name="title_activity_save">SaveActivity</string>
+    <string name="title_activity_db">DbActivity</string>
+    <string name="title_activity_notify">NotifyActivity</string>
+    <string name="title_activity_receive_sms">ReceiveSmsActivity</string>
+
+</resources>
