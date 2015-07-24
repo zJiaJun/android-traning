@@ -37,5 +37,6 @@
     <string name="title_activity_notify">NotifyActivity</string>
     <string name="title_activity_receive_sms">ReceiveSmsActivity</string>
     <string name="title_activity_alert_and_progress_dialog">AlertAndProgressDialogActivity</string>
+    <string name="title_activity_choose_pic">ChoosePicActivity</string>
 
 </resources>

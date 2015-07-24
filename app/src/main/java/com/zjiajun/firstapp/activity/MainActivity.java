@@ -57,6 +57,7 @@ public class MainActivity extends BaseActivity {
         values.add(new MainItem("DB持久化", DbActivity.class));
         values.add(new MainItem("通知栏活动",NotifyActivity.class));
         values.add(new MainItem("接收短信活动",ReceiveSmsActivity.class));
+        values.add(new MainItem("选择照片活动",ChoosePicActivity.class));
         return values;
     }
 
@@ -67,7 +68,7 @@ public class MainActivity extends BaseActivity {
         Log.d(TAG, getResources().getDisplayMetrics().ydpi + "");
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-            Log.d(TAG,savedInstanceState.getString("bundleData"));
+            Log.d(TAG, savedInstanceState.getString("bundleData"));
         }
 
         ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).cancel(100);
