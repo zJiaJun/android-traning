@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -116,6 +116,10 @@
         <activity
             android:name=".activity.ChoosePicActivity"
             android:label="@string/title_activity_choose_pic" >
+        </activity>
+        <activity
+            android:name=".activity.MediaActivity"
+            android:label="@string/title_activity_media" >
         </activity>
     </application>
 

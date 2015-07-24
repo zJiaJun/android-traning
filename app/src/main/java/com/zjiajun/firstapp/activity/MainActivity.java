@@ -58,6 +58,7 @@ public class MainActivity extends BaseActivity {
         values.add(new MainItem("通知栏活动",NotifyActivity.class));
         values.add(new MainItem("接收短信活动",ReceiveSmsActivity.class));
         values.add(new MainItem("选择照片活动",ChoosePicActivity.class));
+        values.add(new MainItem("媒体播放活动",MediaActivity.class));
         return values;
     }
 

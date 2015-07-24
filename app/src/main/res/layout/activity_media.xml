@@ -1,0 +1,72 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.zjiajun.firstapp.activity.MediaActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_play_mp3"
+            android:layout_weight="1"
+            android:text="Play"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_pause_mp3"
+            android:layout_weight="1"
+            android:text="Pause"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_stop_mp3"
+            android:text="Stop"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <VideoView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/videoView"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_play_movie"
+            android:text="Play Movie"
+            android:layout_weight="1"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_pause_movie"
+            android:text="Pause Movie"
+            android:layout_weight="1"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_replay_movie"
+            android:text="Replay Movie"
+            android:layout_weight="1"
+            android:textSize="13sp"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>
