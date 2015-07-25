@@ -121,6 +121,18 @@
             android:name=".activity.MediaActivity"
             android:label="@string/title_activity_media" >
         </activity>
+        <activity
+            android:name=".activity.ThreadActivity"
+            android:label="@string/title_activity_thread" >
+        </activity>
+        <activity
+            android:name=".activity.ServiceActivity"
+            android:label="@string/title_activity_service" >
+        </activity>
+
+        <service
+            android:name=".services.MyService" />
+
     </application>
 
 </manifest>

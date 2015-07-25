@@ -41,15 +41,15 @@ public class MainActivity extends BaseActivity {
 
     private List<MainItem> getMainItems() {
         List<MainItem> values = new ArrayList<>();
-        values.add(new MainItem(getString(R.string.start_second_activity), SecondActivity.class));
-        values.add(new MainItem(getString(R.string.start_second_activity_for_result), SecondActivity.class));
-        values.add(new MainItem(getString(R.string.start_dialog_activity), DialogActivity.class));
+        values.add(new MainItem("启动到第二个活动并传参", SecondActivity.class));
+        values.add(new MainItem("通过startActivityForResult启动", SecondActivity.class));
+        values.add(new MainItem("启动对话框活动", DialogActivity.class));
         values.add(new MainItem("启动Alert和ProgressDialog活动", AlertAndProgressDialogActivity.class));
-        values.add(new MainItem(getString(R.string.start_custom_activity),CustomActivity.class));
-        values.add(new MainItem(getString(R.string.start_chat_activity), ChatActivity.class));
-        values.add(new MainItem(getString(R.string.start_fragment_activity), FragmentActivity.class));
-        values.add(new MainItem(getString(R.string.start_broadcast_activity), BroadcastActivity.class));
-        values.add(new MainItem(getString(R.string.start_multiple_activity), MultipleItemsListActivity.class));
+        values.add(new MainItem("启动自定义的列表活动",CustomActivity.class));
+        values.add(new MainItem("启动聊天活动", ChatActivity.class));
+        values.add(new MainItem("启动碎片活动", FragmentActivity.class));
+        values.add(new MainItem("启动广播活动", BroadcastActivity.class));
+        values.add(new MainItem("启动测试ListView活动", MultipleItemsListActivity.class));
         values.add(new MainItem("用sendBroadcast发送广播", "com.zjiajun.firstapp.MY_STICKY_BROADCAST"));
         values.add(new MainItem("使用sendStickyBroadcast发送广播","com.zjiajun.firstapp.MY_STICKY_BROADCAST"));
         values.add(new MainItem("使用广播强制下线用法",LoginActivity.class));
@@ -59,6 +59,8 @@ public class MainActivity extends BaseActivity {
         values.add(new MainItem("接收短信活动",ReceiveSmsActivity.class));
         values.add(new MainItem("选择照片活动",ChoosePicActivity.class));
         values.add(new MainItem("媒体播放活动",MediaActivity.class));
+        values.add(new MainItem("子线程活动",ThreadActivity.class));
+        values.add(new MainItem("服务活动",ServiceActivity.class));
         return values;
     }
 
@@ -87,10 +89,10 @@ public class MainActivity extends BaseActivity {
                 if (itemObject != null) {
                     if (itemObject instanceof Class<?>) {
                         Intent intent = new Intent(MainActivity.this, (Class<?>) itemObject);
-                        if (getString(R.string.start_second_activity).equals(text)) {
+                        if ("启动到第二个活动并传参".equals(text)) {
                             intent.putExtra("extraKey", "上个活动数据");
                             startActivity(intent);
-                        } else if (getString(R.string.start_second_activity_for_result).equals(text)) {
+                        } else if ("通过startActivityForResult启动".equals(text)) {
                             startActivityForResult(intent, 1);
                         } else {
                             startActivity(intent);
@@ -127,6 +129,7 @@ public class MainActivity extends BaseActivity {
                 }
                 break;
             default:
+                break;
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
