@@ -14,12 +14,15 @@ import android.widget.Button;
 import com.zjiajun.firstapp.R;
 import com.zjiajun.firstapp.base.BaseActivity;
 import com.zjiajun.firstapp.services.ForegroundService;
+import com.zjiajun.firstapp.services.MyIntentService;
 import com.zjiajun.firstapp.services.MyService;
 
 public class ServiceActivity extends BaseActivity implements View.OnClickListener {
 
     private static final String TAG = "ServiceActivity";
-    private Button btn_start_service,btn_stop_service,btn_bind_service,btn_unBind_service,btn_start_foreground_service;
+    private Button btn_start_service,btn_stop_service,
+            btn_bind_service,btn_unBind_service,
+            btn_start_foreground_service,btn_start_intent_service;
     private MyService.MyBinder myBinder;
     private boolean isBound = false;
 
@@ -45,6 +48,7 @@ public class ServiceActivity extends BaseActivity implements View.OnClickListene
         btn_bind_service.setOnClickListener(this);
         btn_unBind_service.setOnClickListener(this);
         btn_start_foreground_service.setOnClickListener(this);
+        btn_start_intent_service.setOnClickListener(this);
     }
 
     @Override
@@ -71,6 +75,11 @@ public class ServiceActivity extends BaseActivity implements View.OnClickListene
                 Intent fIntent = new Intent(this, ForegroundService.class);
                 startService(fIntent);
                 break;
+            case R.id.btn_start_intent_service :
+                Intent intentService = new Intent(this, MyIntentService.class);
+                intentService.putExtra("key", "value");
+                startService(intentService);
+                break;
             default:
                 break;
         }
@@ -89,6 +98,7 @@ public class ServiceActivity extends BaseActivity implements View.OnClickListene
         btn_bind_service = (Button) findViewById(R.id.btn_bind_service);
         btn_unBind_service = (Button) findViewById(R.id.btn_unBind_service);
         btn_start_foreground_service = (Button) findViewById(R.id.btn_start_foreground_service);
+        btn_start_intent_service = (Button) findViewById(R.id.btn_start_intent_service);
     }
 
     @Override

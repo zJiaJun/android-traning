@@ -41,4 +41,10 @@
         android:id="@+id/btn_start_foreground_service"
         android:textAllCaps="false"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Start Intent Service"
+        android:id="@+id/btn_start_intent_service"
+        android:textAllCaps="false"/>
 </LinearLayout>
