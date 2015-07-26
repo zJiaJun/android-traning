@@ -133,6 +133,8 @@
         <service android:name=".services.MyService" />
         <service android:name=".services.ForegroundService"/>
         <service android:name=".services.MyIntentService" />
+        <service android:name=".services.LongRunningService"/>
+        <receiver android:name=".broadcast.AlarmReceiver"/>
     </application>
 
 </manifest>

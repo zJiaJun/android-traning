@@ -14,6 +14,7 @@ import android.widget.Button;
 import com.zjiajun.firstapp.R;
 import com.zjiajun.firstapp.base.BaseActivity;
 import com.zjiajun.firstapp.services.ForegroundService;
+import com.zjiajun.firstapp.services.LongRunningService;
 import com.zjiajun.firstapp.services.MyIntentService;
 import com.zjiajun.firstapp.services.MyService;
 
@@ -49,6 +50,8 @@ public class ServiceActivity extends BaseActivity implements View.OnClickListene
         btn_unBind_service.setOnClickListener(this);
         btn_start_foreground_service.setOnClickListener(this);
         btn_start_intent_service.setOnClickListener(this);
+        Intent intent = new Intent(this, LongRunningService.class);
+        startService(intent);
     }
 
     @Override
