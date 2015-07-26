@@ -1,8 +1,11 @@
 package com.zjiajun.firstapp.activity;
 
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.os.AsyncTaskCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -106,10 +109,52 @@ public class ThreadActivity extends BaseActivity implements View.OnClickListener
             }
         });
         */
-        Log.i(TAG, "onCreate " + Thread.currentThread().getId());//onCreate 1
+        Log.i(TAG, "onCreate,ThreadId is : " + Thread.currentThread().getId());//onCreate 1
         btn_update_view.setOnClickListener(this);
+        Intent tempIntent = new Intent();//just for test
+        tempIntent.putExtra("key", 100);
+//        new MyAsyncTask().execute("AsyncTask", tempIntent);
+        AsyncTaskCompat.executeParallel(new MyAsyncTask(),"AsyncTask", tempIntent);//better
 
     }
+
+    private class MyAsyncTask extends AsyncTask<Object,Integer,Boolean> {
+        /* Run on UI thread */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Log.i(TAG, "onPreExecute,ThreadId is : " + Thread.currentThread().getId());
+        }
+
+        /* Run on new thread */
+        @Override
+        protected Boolean doInBackground(Object... params) {
+            /* do something */
+            String param1 = (String) params[0];
+            Intent param2 = (Intent) params[1];
+            Log.i(TAG, "doInBackground,params :" + param1 + "," + param2 + " ThreadId is: " + Thread.currentThread().getId());
+            publishProgress(param2.getIntExtra("key", 0));
+            Log.i(TAG, "doInBackground,publishProgress");
+            return true;
+        }
+
+        /* Run on UI thread */
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            Log.i(TAG, "onProgressUpdate, values: " + values[0] + " ThreadId is: " + Thread.currentThread().getId());
+        }
+
+        /* Run on UI thread */
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+            Log.i(TAG, "onPostExecute,return Value: " + aBoolean + " ThreadId is: " + Thread.currentThread().getId());
+        }
+
+
+    }
+
 
     @Override
     protected void setContentView() {
