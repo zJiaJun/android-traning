@@ -22,7 +22,7 @@ import java.io.IOException;
 
 public class ChoosePicActivity extends BaseActivity implements View.OnClickListener {
 
-    private Button btn_take_photo,btn_choose_phot;
+    private Button btn_take_photo,btn_choose_photo;
     private ImageView iv_photo;
     private Uri imageUri;
 
@@ -37,7 +37,7 @@ public class ChoosePicActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void initViews() {
         btn_take_photo = (Button) findViewById(R.id.btn_take_photo);
-        btn_choose_phot = (Button) findViewById(R.id.btn_choose_photo);
+        btn_choose_photo = (Button) findViewById(R.id.btn_choose_photo);
         iv_photo = (ImageView) findViewById(R.id.iv_photo);
     }
 
@@ -116,7 +116,7 @@ public class ChoosePicActivity extends BaseActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         btn_take_photo.setOnClickListener(this);
-        btn_choose_phot.setOnClickListener(this);
+        btn_choose_photo.setOnClickListener(this);
     }
 
     @Override
