@@ -23,7 +23,8 @@ public class ServiceActivity extends BaseActivity implements View.OnClickListene
     private static final String TAG = "ServiceActivity";
     private Button btn_start_service,btn_stop_service,
             btn_bind_service,btn_unBind_service,
-            btn_start_foreground_service,btn_start_intent_service;
+            btn_start_foreground_service,btn_start_intent_service,
+            btn_start_longrunning_service;
     private MyService.MyBinder myBinder;
     private boolean isBound = false;
 
@@ -50,8 +51,7 @@ public class ServiceActivity extends BaseActivity implements View.OnClickListene
         btn_unBind_service.setOnClickListener(this);
         btn_start_foreground_service.setOnClickListener(this);
         btn_start_intent_service.setOnClickListener(this);
-        Intent intent = new Intent(this, LongRunningService.class);
-        startService(intent);
+        btn_start_longrunning_service.setOnClickListener(this);
     }
 
     @Override
@@ -83,6 +83,10 @@ public class ServiceActivity extends BaseActivity implements View.OnClickListene
                 intentService.putExtra("key", "value");
                 startService(intentService);
                 break;
+            case R.id.btn_start_longrunning_service :
+                Intent longRunningService = new Intent(this, LongRunningService.class);
+                startService(longRunningService);
+                break;
             default:
                 break;
         }
@@ -102,6 +106,7 @@ public class ServiceActivity extends BaseActivity implements View.OnClickListene
         btn_unBind_service = (Button) findViewById(R.id.btn_unBind_service);
         btn_start_foreground_service = (Button) findViewById(R.id.btn_start_foreground_service);
         btn_start_intent_service = (Button) findViewById(R.id.btn_start_intent_service);
+        btn_start_longrunning_service = (Button) findViewById(R.id.btn_start_longrunning_service);
     }
 
     @Override
