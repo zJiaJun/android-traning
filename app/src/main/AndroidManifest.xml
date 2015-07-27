@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -131,10 +132,16 @@
         </activity>
 
         <service android:name=".services.MyService" />
-        <service android:name=".services.ForegroundService"/>
+        <service android:name=".services.ForegroundService" />
         <service android:name=".services.MyIntentService" />
-        <service android:name=".services.LongRunningService"/>
-        <receiver android:name=".broadcast.AlarmReceiver"/>
+        <service android:name=".services.LongRunningService" />
+
+        <receiver android:name=".broadcast.AlarmReceiver" />
+
+        <activity
+            android:name=".activity.NetworkActivity"
+            android:label="@string/title_activity_network" >
+        </activity>
     </application>
 
 </manifest>
