@@ -1,5 +1,6 @@
 package com.zjiajun.firstapp.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -8,12 +9,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.SerializedName;
 import com.zjiajun.firstapp.R;
 import com.zjiajun.firstapp.base.BaseActivity;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -31,7 +36,7 @@ public class NetworkActivity extends BaseActivity {
     private static final String TAG = "NetworkActivity";
 
     private static final String WEB_SITE = "http://www.google.com";
-    private Button btn_send_request;
+    private Button btn_send_request,btn_json_response;
     private TextView tv_response;
     private View.OnClickListener mListener = new View.OnClickListener() {
         @Override
@@ -51,11 +56,80 @@ public class NetworkActivity extends BaseActivity {
                     sendRequestWithHttpURLConnection();
                     sendRequestWithHttpClient();
                     break;
+                case R.id.btn_json_response :
+                    parseJsonWithGson();
+                    break;
                 default:
                     break;
             }
         }
     };
+
+    private void parseJsonWithGson() {
+        Log.i(TAG, "parseJsonWithGson,ThreadId " + Thread.currentThread().getId());
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Log.i(TAG, "parseJsonWithGson---Run,ThreadId " + Thread.currentThread().getId());
+                try {
+                    HttpClient httpClient = new DefaultHttpClient();
+                    //just for test
+                    String jsonUrl = "https://api.weibo.com/2/statuses/public_timeline.json";
+                    HttpResponse response = httpClient.execute(new HttpGet(jsonUrl));
+                    final WeiBoError weiBoError = new Gson().fromJson(
+                            EntityUtils.toString(response.getEntity(), "UTF-8"), WeiBoError.class);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.i(TAG, "parseJsonWithGson---runOnUiThread,ThreadId " + Thread.currentThread().getId());
+                            tv_response.setText(weiBoError.toString());
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+    class WeiBoError {
+        private String error;
+        @SerializedName("error_code")
+        private Integer errorCode;
+        private String request;
+
+        public String getError() {
+            return error;
+        }
+
+        public void setError(String error) {
+            this.error = error;
+        }
+
+        public Integer getErrorCode() {
+            return errorCode;
+        }
+
+        public void setErrorCode(Integer errorCode) {
+            this.errorCode = errorCode;
+        }
+
+        public String getRequest() {
+            return request;
+        }
+
+        public void setRequest(String request) {
+            this.request = request;
+        }
+
+        @Override
+        public String toString() {
+            return "WeiBoError{" +
+                    "error='" + error + '\'' +
+                    ", errorCode=" + errorCode +
+                    ", request='" + request + '\'' +
+                    '}';
+        }
+    }
 
     private void sendRequestWithHttpClient() {
         Log.i(TAG, "sendRequestWithHttpClient,ThreadId " + Thread.currentThread().getId());
@@ -125,6 +199,7 @@ public class NetworkActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "onCreate,ThreadId " + Thread.currentThread().getId());
         btn_send_request.setOnClickListener(mListener);
+        btn_json_response.setOnClickListener(mListener);
     }
 
     @Override
@@ -135,6 +210,7 @@ public class NetworkActivity extends BaseActivity {
     @Override
     protected void initViews() {
         btn_send_request = (Button) findViewById(R.id.btn_send_request);
+        btn_json_response = (Button) findViewById(R.id.btn_json_response);
         tv_response = (TextView) findViewById(R.id.tv_response);
     }
 

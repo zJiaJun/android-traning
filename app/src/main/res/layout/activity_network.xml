@@ -12,6 +12,13 @@
         android:text="Send Request"
         android:textAllCaps="false" />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_json_response"
+        android:text="Send Json Response"
+        android:textAllCaps="false" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
