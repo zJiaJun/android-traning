@@ -1,6 +1,5 @@
 package com.zjiajun.firstapp.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -10,7 +9,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import com.zjiajun.firstapp.R;
 import com.zjiajun.firstapp.base.BaseActivity;
@@ -18,7 +16,6 @@ import com.zjiajun.firstapp.base.BaseActivity;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
