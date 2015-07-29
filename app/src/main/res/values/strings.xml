@@ -34,5 +34,6 @@
     <string name="title_activity_thread">ThreadActivity</string>
     <string name="title_activity_service">ServiceActivity</string>
     <string name="title_activity_network">NetworkActivity</string>
+    <string name="title_activity_location">LocationActivity</string>
 
 </resources>

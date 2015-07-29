@@ -62,6 +62,7 @@ public class MainActivity extends BaseActivity {
         values.add(new MainItem("子线程活动",ThreadActivity.class));
         values.add(new MainItem("服务活动",ServiceActivity.class));
         values.add(new MainItem("网络活动",NetworkActivity.class));
+        values.add(new MainItem("位置活动",LocationActivity.class));
         return values;
     }
 
