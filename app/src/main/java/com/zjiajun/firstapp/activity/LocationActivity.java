@@ -10,10 +10,14 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
 import com.zjiajun.firstapp.R;
 import com.zjiajun.firstapp.base.BaseActivity;
+import com.zjiajun.firstapp.utils.HttpUtil;
 
 import java.util.List;
+import java.util.Map;
 
 public class LocationActivity extends BaseActivity {
 
@@ -64,7 +68,26 @@ public class LocationActivity extends BaseActivity {
     }
 
     private void showLocation(Location location) {
-        tv_location.setText("纬度: " + location.getLatitude() + "\n" + "经度: " + location.getLongitude());
+        StringBuilder stringBuilder = new StringBuilder("http://maps.googleapis.com/maps/api/geocode/json?address=");
+        stringBuilder.append(location.getLatitude()).append(",").append(location.getLongitude())
+                .append("&sensor=false");
+        String content = HttpUtil.sendHttpGetRequest(stringBuilder.toString());
+        Map map = new Gson().fromJson(content, Map.class);
+        Object status = map.get("status");
+        if (status != null && status.equals("OK")) {
+            Object results = map.get("results");
+            List list = (List) results;
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0;i<list.size();i++) {
+                Map mMap = ((Map) list.get(i));
+                String formattedAddress = mMap.get("formatted_address").toString();
+                sb.append(formattedAddress + "\n");
+            }
+            tv_location.setText(sb.toString());
+        } else {
+            tv_location.setText("Not Found");
+        }
+
     }
 
     @Override

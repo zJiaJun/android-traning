@@ -36,6 +36,7 @@ public class HttpUtil {
                 try {
                     HttpClient httpClient = new DefaultHttpClient();
                     HttpGet httpGet = new HttpGet(url);
+                    httpGet.addHeader("Accept-Language","zh-CN");
                     HttpResponse response = httpClient.execute(httpGet);
                     content = EntityUtils.toString(response.getEntity(), "UTF-8");
                 } catch (ClientProtocolException e) {
