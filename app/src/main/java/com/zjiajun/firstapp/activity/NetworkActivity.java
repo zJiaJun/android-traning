@@ -12,14 +12,7 @@ import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import com.zjiajun.firstapp.R;
 import com.zjiajun.firstapp.base.BaseActivity;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
+import com.zjiajun.firstapp.utils.HttpUtil;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -64,6 +57,7 @@ public class NetworkActivity extends BaseActivity {
 
     private void parseJsonWithGson() {
         Log.i(TAG, "parseJsonWithGson,ThreadId " + Thread.currentThread().getId());
+        /*
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -87,6 +81,13 @@ public class NetworkActivity extends BaseActivity {
                 }
             }
         }).start();
+        */
+
+        //just for test
+        String jsonUrl = "https://api.weibo.com/2/statuses/public_timeline.json";
+        String content = HttpUtil.sendHttpGetRequest(jsonUrl);//responseCode 400
+        WeiBoError weiBoError = new Gson().fromJson(content, WeiBoError.class);
+        tv_response.setText(weiBoError.toString());
     }
     class WeiBoError {
         private String error;
@@ -130,6 +131,7 @@ public class NetworkActivity extends BaseActivity {
 
     private void sendRequestWithHttpClient() {
         Log.i(TAG, "sendRequestWithHttpClient,ThreadId " + Thread.currentThread().getId());
+        /*
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -154,6 +156,10 @@ public class NetworkActivity extends BaseActivity {
                 }
             }
         }).start();
+        */
+
+        String content = HttpUtil.sendHttpGetRequest(WEB_SITE);
+        tv_response.setText(content);
 
     }
 
