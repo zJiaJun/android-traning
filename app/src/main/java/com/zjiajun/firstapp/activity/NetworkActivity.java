@@ -1,6 +1,10 @@
 package com.zjiajun.firstapp.activity;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.os.AsyncTaskCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -85,10 +89,29 @@ public class NetworkActivity extends BaseActivity {
 
         //just for test
         String jsonUrl = "https://api.weibo.com/2/statuses/public_timeline.json";
-        String content = HttpUtil.sendHttpGetRequest(jsonUrl);//responseCode 400
-        WeiBoError weiBoError = new Gson().fromJson(content, WeiBoError.class);
-        tv_response.setText(weiBoError.toString());
+        AsyncTaskCompat.executeParallel(new JsonAsyncTask(),jsonUrl);
+//        HttpUtil.sendHttpGetRequest(jsonUrl);//responseCode 400
+//        WeiBoError weiBoError = new Gson().fromJson(content, WeiBoError.class);
+//        tv_response.setText(weiBoError.toString());
     }
+    class JsonAsyncTask extends AsyncTask<String,Void,String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            Log.i(TAG, "doInBackground,ThreadId " + Thread.currentThread().getId());
+            String response = HttpUtil.sendHttpGetRequest(params[0]);
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            Log.i(TAG, "onPostExecute,ThreadId " + Thread.currentThread().getId());
+            super.onPostExecute(response);
+            WeiBoError weiBoError = new Gson().fromJson(response, WeiBoError.class);
+            tv_response.setText(weiBoError.toString());
+        }
+    }
+
     class WeiBoError {
         private String error;
         @SerializedName("error_code")
@@ -158,8 +181,8 @@ public class NetworkActivity extends BaseActivity {
         }).start();
         */
 
-        String content = HttpUtil.sendHttpGetRequest(WEB_SITE);
-        tv_response.setText(content);
+//        String content = HttpUtil.sendHttpGetRequest(WEB_SITE);
+//        tv_response.setText(content);
 
     }
 

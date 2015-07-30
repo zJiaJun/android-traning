@@ -71,8 +71,8 @@ public class LocationActivity extends BaseActivity {
         StringBuilder stringBuilder = new StringBuilder("http://maps.googleapis.com/maps/api/geocode/json?address=");
         stringBuilder.append(location.getLatitude()).append(",").append(location.getLongitude())
                 .append("&sensor=false");
-        String content = HttpUtil.sendHttpGetRequest(stringBuilder.toString());
-        Map map = new Gson().fromJson(content, Map.class);
+//        String content = HttpUtil.sendHttpGetRequest(stringBuilder.toString());
+        Map map = new Gson().fromJson("", Map.class);
         Object status = map.get("status");
         if (status != null && status.equals("OK")) {
             Object results = map.get("results");

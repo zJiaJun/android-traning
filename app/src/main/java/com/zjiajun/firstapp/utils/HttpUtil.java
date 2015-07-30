@@ -1,5 +1,11 @@
 package com.zjiajun.firstapp.utils;
 
+import android.os.Handler;
+import android.os.Message;
+
+import com.zjiajun.firstapp.activity.NetworkActivity;
+import com.zjiajun.firstapp.activity.ThreadActivity;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
@@ -28,6 +34,18 @@ public class HttpUtil {
     public static String sendHttpGetRequest(final String url){
         System.out.println("HttpUtil,ThreadId: " + Thread.currentThread().getId());
         String responseStr = null;
+        try {
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpGet httpGet = new HttpGet(url);
+            httpGet.addHeader("Accept-Language","zh-CN");
+            HttpResponse response = httpClient.execute(httpGet);
+            responseStr = EntityUtils.toString(response.getEntity(), "UTF-8");
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        /*
         Future<String> future = EXECUTOR_SERVICE.submit(new Callable<String>() {
             @Override
             public String call() throws Exception {
@@ -46,12 +64,14 @@ public class HttpUtil {
             }
         });
         try {
-            responseStr = future.get();
+            responseStr = future.get(); //waiting http request to finish,it's synchronized
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
-        }
-        return responseStr;
+        } */
+
+       return responseStr;
+
     }
 }
