@@ -99,8 +99,7 @@ public class NetworkActivity extends BaseActivity {
         @Override
         protected String doInBackground(String... params) {
             Log.i(TAG, "doInBackground,ThreadId " + Thread.currentThread().getId());
-            String response = HttpUtil.sendHttpGetRequest(params[0]);
-            return response;
+            return HttpUtil.sendHttpGetRequest(params[0]);
         }
 
         @Override

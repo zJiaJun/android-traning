@@ -4,6 +4,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -68,24 +69,39 @@ public class LocationActivity extends BaseActivity {
     }
 
     private void showLocation(Location location) {
-        StringBuilder stringBuilder = new StringBuilder("http://maps.googleapis.com/maps/api/geocode/json?address=");
+        final StringBuilder stringBuilder = new StringBuilder("http://maps.googleapis.com/maps/api/geocode/json?address=");
         stringBuilder.append(location.getLatitude()).append(",").append(location.getLongitude())
                 .append("&sensor=false");
-//        String content = HttpUtil.sendHttpGetRequest(stringBuilder.toString());
-        Map map = new Gson().fromJson("", Map.class);
-        Object status = map.get("status");
-        if (status != null && status.equals("OK")) {
-            Object results = map.get("results");
-            List list = (List) results;
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0;i<list.size();i++) {
-                Map mMap = ((Map) list.get(i));
-                String formattedAddress = mMap.get("formatted_address").toString();
-                sb.append(formattedAddress + "\n");
+        final String [] content = new String[1];
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                content[0] = HttpUtil.sendHttpGetRequest(stringBuilder.toString());
             }
-            tv_location.setText(sb.toString());
+        });
+        thread.start();
+        try {
+            thread.join();//waiting response
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if (!TextUtils.isEmpty(content[0])) {
+            Map map = new Gson().fromJson(content[0], Map.class);
+            if (map != null && "OK".equals(map.get("status"))) {
+                Object results = map.get("results");
+                List list = (List) results;
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < list.size(); i++) {
+                    Map mMap = ((Map) list.get(i));
+                    String formattedAddress = mMap.get("formatted_address").toString() + "\n";
+                    sb.append(formattedAddress);
+                }
+                tv_location.setText(sb.toString());
+            } else {
+                tv_location.setText("Not Found");
+            }
         } else {
-            tv_location.setText("Not Found");
+            Toast.makeText(LocationActivity.this, "fucking bug!!!", Toast.LENGTH_SHORT).show();
         }
 
     }

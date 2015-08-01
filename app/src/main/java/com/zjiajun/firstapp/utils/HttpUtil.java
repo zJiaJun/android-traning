@@ -27,21 +27,20 @@ import java.util.concurrent.Future;
  */
 public class HttpUtil {
 
-    private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
-    private static final int CORE_POOL_SIZE = CPU_COUNT + 1;
-    private static final ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(CORE_POOL_SIZE);
+//    private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
+//    private static final int CORE_POOL_SIZE = CPU_COUNT + 1;
+//    private static final ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(CORE_POOL_SIZE);
+
+    private static HttpClient HTTP_CLIENT = new DefaultHttpClient();
 
     public static String sendHttpGetRequest(final String url){
         System.out.println("HttpUtil,ThreadId: " + Thread.currentThread().getId());
         String responseStr = null;
         try {
-            HttpClient httpClient = new DefaultHttpClient();
             HttpGet httpGet = new HttpGet(url);
-            httpGet.addHeader("Accept-Language","zh-CN");
-            HttpResponse response = httpClient.execute(httpGet);
+            httpGet.addHeader("Accept-Language", "zh-CN");
+            HttpResponse response = HTTP_CLIENT.execute(httpGet);
             responseStr = EntityUtils.toString(response.getEntity(), "UTF-8");
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
