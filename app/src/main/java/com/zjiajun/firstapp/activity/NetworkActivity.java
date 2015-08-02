@@ -17,6 +17,7 @@ import com.google.gson.annotations.SerializedName;
 import com.zjiajun.firstapp.R;
 import com.zjiajun.firstapp.base.BaseActivity;
 import com.zjiajun.firstapp.utils.HttpUtil;
+import com.zjiajun.firstapp.utils.NetworkUtil;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -61,32 +62,6 @@ public class NetworkActivity extends BaseActivity {
 
     private void parseJsonWithGson() {
         Log.i(TAG, "parseJsonWithGson,ThreadId " + Thread.currentThread().getId());
-        /*
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Log.i(TAG, "parseJsonWithGson---Run,ThreadId " + Thread.currentThread().getId());
-                try {
-                    HttpClient httpClient = new DefaultHttpClient();
-                    //just for test
-                    String jsonUrl = "https://api.weibo.com/2/statuses/public_timeline.json";
-                    HttpResponse response = httpClient.execute(new HttpGet(jsonUrl));
-                    final WeiBoError weiBoError = new Gson().fromJson(
-                            EntityUtils.toString(response.getEntity(), "UTF-8"), WeiBoError.class);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Log.i(TAG, "parseJsonWithGson---runOnUiThread,ThreadId " + Thread.currentThread().getId());
-                            tv_response.setText(weiBoError.toString());
-                        }
-                    });
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-        */
-
         //just for test
         String jsonUrl = "https://api.weibo.com/2/statuses/public_timeline.json";
         AsyncTaskCompat.executeParallel(new JsonAsyncTask(),jsonUrl);
@@ -95,11 +70,21 @@ public class NetworkActivity extends BaseActivity {
 //        tv_response.setText(weiBoError.toString());
     }
     class JsonAsyncTask extends AsyncTask<String,Void,String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            if (!NetworkUtil.isNetworkAvailable())
+                cancel(true);
+        }
 
         @Override
         protected String doInBackground(String... params) {
             Log.i(TAG, "doInBackground,ThreadId " + Thread.currentThread().getId());
-            return HttpUtil.sendHttpGetRequest(params[0]);
+            if (!isCancelled()) {
+                return HttpUtil.sendHttpGetRequest(params[0], false);
+            } else {
+                return "没有网络任务取消";
+            }
         }
 
         @Override
@@ -108,6 +93,12 @@ public class NetworkActivity extends BaseActivity {
             super.onPostExecute(response);
             WeiBoError weiBoError = new Gson().fromJson(response, WeiBoError.class);
             tv_response.setText(weiBoError.toString());
+        }
+
+        @Override
+        protected void onCancelled(String s) {
+            super.onCancelled(s);
+            tv_response.setText(s);
         }
     }
 
@@ -153,36 +144,8 @@ public class NetworkActivity extends BaseActivity {
 
     private void sendRequestWithHttpClient() {
         Log.i(TAG, "sendRequestWithHttpClient,ThreadId " + Thread.currentThread().getId());
-        /*
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Log.i(TAG, "sendRequestWithHttpClient---Run,ThreadId " + Thread.currentThread().getId());
-                try {
-                    HttpClient httpClient = new DefaultHttpClient();
-                    HttpGet httpGet = new HttpGet(WEB_SITE);
-                    HttpResponse response = httpClient.execute(httpGet);
-                    if (HttpStatus.SC_OK == response.getStatusLine().getStatusCode()) {
-                        HttpEntity entity = response.getEntity();
-                        final String content = EntityUtils.toString(entity, "UTF-8");
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Log.i(TAG, "httpClient run,ThreadId " + Thread.currentThread().getId());
-                                tv_response.setText(content);
-                            }
-                        });
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-        */
-
-//        String content = HttpUtil.sendHttpGetRequest(WEB_SITE);
-//        tv_response.setText(content);
-
+        String content = HttpUtil.sendHttpGetRequest(WEB_SITE,true);
+        tv_response.setText(content);
     }
 
     private void sendRequestWithHttpURLConnection() {
