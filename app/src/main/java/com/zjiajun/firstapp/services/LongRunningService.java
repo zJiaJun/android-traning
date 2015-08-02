@@ -8,7 +8,7 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
 
-import com.zjiajun.firstapp.broadcast.AlarmReceiver;
+import com.zjiajun.firstapp.receiver.AlarmReceiver;
 
 import java.util.Date;
 

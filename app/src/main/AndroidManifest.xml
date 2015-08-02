@@ -55,7 +55,7 @@
             android:label="@string/title_activity_broadcast" >
         </activity>
 
-        <receiver android:name=".broadcast.BootCompleteReceiver" > <!-- 静态注册广播接收器,程序未启动就可以接收广播 -->
+        <receiver android:name=".receiver.BootCompleteReceiver" > <!-- 静态注册广播接收器,程序未启动就可以接收广播 -->
             <intent-filter> <!-- 想要接收的广播 -->
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -63,17 +63,17 @@
 
         <activity android:name=".activity.MultipleItemsListActivity" />
 
-        <receiver android:name=".broadcast.MyBroadcastReceiver" >
+        <receiver android:name=".receiver.MyBroadcastReceiver" >
             <intent-filter>
                 <action android:name="com.zjiajun.firstapp.MY_BROADCAST" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".broadcast.MyOrderBroadcastReceiver1" >
+        <receiver android:name=".receiver.MyOrderBroadcastReceiver1" >
             <intent-filter android:priority="20" > <!-- 有序广播 数字越大 优先级越高 -->
                 <action android:name="com.zjiajun.firstapp.MY_ORDERED_BROADCAST" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".broadcast.MyOrderBroadcastReceiver2" >
+        <receiver android:name=".receiver.MyOrderBroadcastReceiver2" >
             <intent-filter android:priority="10" >
                 <action android:name="com.zjiajun.firstapp.MY_ORDERED_BROADCAST" />
             </intent-filter>
@@ -88,7 +88,7 @@
             android:label="@string/title_activity_login_success" >
         </activity>
 
-        <receiver android:name=".broadcast.ForceBroadcastReceiver" >
+        <receiver android:name=".receiver.ForceBroadcastReceiver" >
             <intent-filter>
                 <action android:name="com.zjiajun.first.app.FORCE_OFFLINE" />
             </intent-filter>
@@ -136,7 +136,7 @@
         <service android:name=".services.MyIntentService" />
         <service android:name=".services.LongRunningService" />
 
-        <receiver android:name=".broadcast.AlarmReceiver" />
+        <receiver android:name=".receiver.AlarmReceiver" />
 
         <activity
             android:name=".activity.NetworkActivity"

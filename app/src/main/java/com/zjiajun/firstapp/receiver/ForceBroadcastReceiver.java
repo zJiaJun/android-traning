@@ -1,4 +1,4 @@
-package com.zjiajun.firstapp.broadcast;
+package com.zjiajun.firstapp.receiver;
 
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;

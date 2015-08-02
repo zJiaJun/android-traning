@@ -1,4 +1,4 @@
-package com.zjiajun.firstapp.broadcast;
+package com.zjiajun.firstapp.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

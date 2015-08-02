@@ -11,8 +11,8 @@ import android.widget.Button;
 
 import com.zjiajun.firstapp.R;
 import com.zjiajun.firstapp.base.BaseActivity;
-import com.zjiajun.firstapp.broadcast.MyStickyBroadcastReceiver;
-import com.zjiajun.firstapp.broadcast.NetworkChangeReceiver;
+import com.zjiajun.firstapp.receiver.MyStickyBroadcastReceiver;
+import com.zjiajun.firstapp.receiver.NetworkChangeReceiver;
 
 public class BroadcastActivity extends BaseActivity {
 
