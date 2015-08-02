@@ -16,7 +16,7 @@ import com.zjiajun.firstapp.R;
 import com.zjiajun.firstapp.base.BaseActivity;
 import com.zjiajun.firstapp.model.MainItem;
 import com.zjiajun.firstapp.model.PersonParcelable;
-import com.zjiajun.firstapp.model.PersonSerialiable;
+import com.zjiajun.firstapp.model.PersonSerializable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,10 +95,10 @@ public class MainActivity extends BaseActivity {
                         Intent intent = new Intent(MainActivity.this, (Class<?>) itemObject);
                         if ("启动到第二个活动并传参".equals(text)) {
                             intent.putExtra("extraKey", "上个活动数据");
-                            PersonSerialiable personSerialiable = new PersonSerialiable();
-                            personSerialiable.setName("9leg.com");
-                            personSerialiable.setAge(27);
-                            intent.putExtra("serKey", personSerialiable);
+                            PersonSerializable personSerializable = new PersonSerializable();
+                            personSerializable.setName("9leg.com");
+                            personSerializable.setAge(27);
+                            intent.putExtra("serKey", personSerializable);
                             PersonParcelable personParcelable = new PersonParcelable("leon",37);
                             intent.putExtra("parKey",personParcelable);
                             startActivity(intent);

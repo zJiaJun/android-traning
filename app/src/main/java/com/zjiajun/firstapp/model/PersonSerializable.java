@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by zhujiajun
  * 15/8/2 15:29
  */
-public class PersonSerialiable implements Serializable {
+public class PersonSerializable implements Serializable {
 
     private String name;
     private Integer age;

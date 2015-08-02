@@ -13,7 +13,7 @@ import android.widget.EditText;
 import com.zjiajun.firstapp.R;
 import com.zjiajun.firstapp.base.BaseActivity;
 import com.zjiajun.firstapp.model.PersonParcelable;
-import com.zjiajun.firstapp.model.PersonSerialiable;
+import com.zjiajun.firstapp.model.PersonSerializable;
 
 public class SecondActivity extends BaseActivity {
 
@@ -46,10 +46,10 @@ public class SecondActivity extends BaseActivity {
         String value = getIntent().getStringExtra("extraKey");//获取上个Activity的参数
         editText.setText(value);
 
-        PersonSerialiable personSerialiable = (PersonSerialiable) getIntent().getSerializableExtra("serKey");
-        et_from_ser.setText(personSerialiable.toString());
+        PersonSerializable personSerializable = (PersonSerializable) getIntent().getSerializableExtra("serKey");
+        et_from_ser.setText(personSerializable.toString());
 
-        PersonParcelable personParcelable = (PersonParcelable) getIntent().getParcelableExtra("parKey");
+        PersonParcelable personParcelable = getIntent().getParcelableExtra("parKey");
         et_from_par.setText(personParcelable.toString());
 
         btnParams.setOnClickListener(new View.OnClickListener() {
