@@ -12,12 +12,14 @@ import android.widget.EditText;
 
 import com.zjiajun.firstapp.R;
 import com.zjiajun.firstapp.base.BaseActivity;
+import com.zjiajun.firstapp.model.PersonParcelable;
+import com.zjiajun.firstapp.model.PersonSerialiable;
 
 public class SecondActivity extends BaseActivity {
 
     private static final String TAG = "SecondActivity";
 
-    private EditText editText;
+    private EditText editText,et_from_ser,et_from_par;
     private Button btnParams;
 
     @Override
@@ -29,6 +31,8 @@ public class SecondActivity extends BaseActivity {
     protected void initViews() {
         editText = (EditText) findViewById(R.id.editText);
         btnParams = (Button) findViewById(R.id.btn_params);
+        et_from_ser = (EditText) findViewById(R.id.et_from_ser);
+        et_from_par = (EditText) findViewById(R.id.et_from_par);
     }
 
     @Override
@@ -41,7 +45,13 @@ public class SecondActivity extends BaseActivity {
         }
         String value = getIntent().getStringExtra("extraKey");//获取上个Activity的参数
         editText.setText(value);
-        
+
+        PersonSerialiable personSerialiable = (PersonSerialiable) getIntent().getSerializableExtra("serKey");
+        et_from_ser.setText(personSerialiable.toString());
+
+        PersonParcelable personParcelable = (PersonParcelable) getIntent().getParcelableExtra("parKey");
+        et_from_par.setText(personParcelable.toString());
+
         btnParams.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

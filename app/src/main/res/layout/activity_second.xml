@@ -17,7 +17,19 @@
         android:layout_height="wrap_content"
         android:text="@string/btn_params"
         android:id="@+id/btn_params"
-        android:layout_below="@+id/editText" />
+        android:layout_below="@id/editText" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_from_ser"
+        android:layout_below="@id/btn_params"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_from_par"
+        android:layout_below="@id/et_from_ser"/>
 
 
 </RelativeLayout>
